@@ -28,6 +28,7 @@ class FeatureContext extends MinkContext implements Context
      */
     public function __construct()
     {
+        ini_set('memory_limit','16M');
     }
 
     /**
@@ -129,5 +130,15 @@ class FeatureContext extends MinkContext implements Context
         PHPUnit::assertTrue(Auth::check());
 
         $this->assertPageAddress('home');
+    }
+
+    /**
+     * @Then I should be able to see :text
+     */
+    public function iShouldBeAbleToSee($text)
+    {
+        $this->assertPageContainsText($text);
+        $this->getSession()->wait(5000);
+//        print_r(->getPage());
     }
 }
